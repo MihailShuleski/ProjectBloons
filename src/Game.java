@@ -1,0 +1,19 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+
+public class Game {
+
+
+    public void showMenu(){
+        JFrame frame=new JFrame("Simple Tower Defense");
+        frame.setSize(600,800);
+        frame.setLayout(new BorderLayout());
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.add(new GamePanel());
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}
