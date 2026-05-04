@@ -12,7 +12,7 @@ public class CustomButton {
         button.setBorderPainted(false);
     }
     public static  void settingsButton(JButton button){
-        button.setBackground(new Color(136, 38, 165));
+        button.setBackground(new Color(127, 191, 54));
         button.setForeground(Color.WHITE);
         button.setFont(new Font("Comic Sans",Font.BOLD,20));
 
