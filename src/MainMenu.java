@@ -11,7 +11,8 @@ public class MainMenu extends JFrame {
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel label = new JLabel("Vitejte do epic hry Ball TD 6", JLabel.CENTER);
-        label.setFont(new Font("Times New Roman",Font.BOLD,20));
+        label.setFont(new Font("Times New Roman",Font.BOLD,24));
+        label.setBorder(BorderFactory.createEmptyBorder(50,0,50,0));
         this.frame.add(label, BorderLayout.CENTER);
 
         JButton button = new JButton("Klikni abys hru zacal");
