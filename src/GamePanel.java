@@ -8,6 +8,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements ActionListener {
+    ArrayList<Projectile> projectiles=new ArrayList<>();
     ArrayList<Enemy> enemies=new ArrayList<>();
     ArrayList<Tower> towers=new ArrayList<>();
     Timer gameTimer;
@@ -50,7 +51,7 @@ public class GamePanel extends JPanel implements ActionListener {
             spawnCounter=0;
         }
         for (Tower tower:towers){
-            tower.update(enemies);
+            tower.update(enemies,projectiles);
         }
         ArrayList<Enemy> toRemove=new ArrayList<>();
         for (Enemy enemy:enemies){

@@ -8,6 +8,7 @@ public class Tower {
     int y;
     int range;
     int cooldown=0;
+    int level=1;
 
 
     public Tower(int x,int y){
@@ -17,14 +18,18 @@ public class Tower {
         this.type=0;
         this.typeName="Basic Tower";
 }
-    public void update(ArrayList<Enemy> enemies){
-        if(cooldown >0)
+    public void update(ArrayList<Enemy> enemies,ArrayList<Projectile> projectiles){
+        if(cooldown >0){
             cooldown--;
+            return;
+        }
         for (Enemy enemy:enemies){
             double dist=Math.sqrt(Math.pow(enemy.x-x,2)+Math.pow(enemy.y-y,2));
-            if (dist<=range && cooldown==0){
-                enemy.health -=1;
-                cooldown=60;
+            if (dist<=range){
+                projectiles.add(new Projectile(x,y,enemy));
+                cooldown=60-level*10;
+                if (cooldown<10)
+                    cooldown=10;
                 break;
             }
         }

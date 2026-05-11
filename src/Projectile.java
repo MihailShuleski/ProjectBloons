@@ -27,8 +27,8 @@ public class Projectile {
         if (dist<speed){
             target.health--;
         }else {
-            x+=(dx/dist)*speed;
-            y+=(dy/dist)*speed;
+            x+= (dx/dist) * speed;
+            y+= (dy/dist) * speed;
         }
     }
     public void draw(Graphics graphics){
