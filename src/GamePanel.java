@@ -37,6 +37,9 @@ public class GamePanel extends JPanel implements ActionListener {
         for (Enemy enemy:enemies){
             enemy.draw(g);
         }
+        for (Projectile projectile:projectiles){
+            projectile.draw(g);
+        }
         g.setFont(new Font("Arial",Font.BOLD,14));
         g.setColor(Color.BLACK);
         g.drawString("Click anywhere to place a tower",10,20);
@@ -59,6 +62,9 @@ public class GamePanel extends JPanel implements ActionListener {
             if (enemy.health <= 0|| enemy.x>getWidth()) {
                 toRemove.add(enemy);
             }
+        }
+        for (Projectile projectile:projectiles){
+            projectile.update();
         }
         enemies.removeAll(toRemove);
         repaint();
