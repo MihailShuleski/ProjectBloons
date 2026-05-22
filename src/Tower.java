@@ -41,6 +41,12 @@ public class Tower {
     public void draw(Graphics graphics){
         graphics.setColor(Color.DARK_GRAY);
         graphics.fillRect(x-20,y-20,40,40);
+
+        if (level>1){
+            graphics.setColor(Color.YELLOW);
+            graphics.drawRect(x-22,y-22,44,44);
+            graphics.drawString("Level: "+level,x-15,y+35);
+        }
         graphics.setColor(new Color(0,0,0,50));
         graphics.drawOval(x-range,y-range,range*2,range*2);
     }
