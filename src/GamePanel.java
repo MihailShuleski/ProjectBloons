@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements ActionListener {
     Timer gameTimer;
     int spawnCounter=0;
     int spawnType=0;
+    int currentRound=1;
 
     public GamePanel(){
         gameTimer=new Timer(16,this);
@@ -45,7 +46,11 @@ public class GamePanel extends JPanel implements ActionListener {
     @Override
     protected void paintComponent(Graphics g) {
         g.setColor(new Color(200,200,150));
-        g.fillRect(0,85,getWidth(),60);
+        Graphics2D graphics2D=(Graphics2D) g;
+        graphics2D.setStroke(new BasicStroke(40,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
+        int[] pathX={0,200,200,400,400,700};
+        int[] pathY={115,115,300,300,115,115};
+        graphics2D.drawPolyline(pathX,pathY,pathX.length);
 
         for (Tower tower:towers){
             tower.draw(g);
@@ -58,7 +63,19 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         g.setFont(new Font("Arial",Font.BOLD,14));
         g.setColor(Color.BLACK);
-        g.drawString("Click anywhere to place a tower",10,20);
+        g.drawString("Click anywhere to place a tower(50$),Click ON a tower to upgrade(100$)",10,20);
+        g.setColor(new Color(0,120,0));
+        g.drawString("Money: $ "+money,10,40);
+        g.setColor(Color.RED);
+        g.drawString("Lives: "+ lives,120,40);
+        g.setColor(Color.BLUE);
+        g.drawString("Round: "+ currentRound,220,40);
+
+        if (lives<=0){
+            g.setFont(new Font("Arial",Font.BOLD,50));
+            g.setColor(Color.RED);
+            g.drawString("GAME OVER",getWidth()/2-150,getHeight()/2);
+        }
     }
 
     @Override
