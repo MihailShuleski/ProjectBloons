@@ -34,6 +34,10 @@ public class Tower {
             }
         }
     }
+    public void upgrade(){
+        this.level++;
+        this.range+=40;
+    }
     public void draw(Graphics graphics){
         graphics.setColor(Color.DARK_GRAY);
         graphics.fillRect(x-20,y-20,40,40);

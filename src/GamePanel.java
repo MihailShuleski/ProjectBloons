@@ -11,6 +11,8 @@ public class GamePanel extends JPanel implements ActionListener {
     ArrayList<Projectile> projectiles=new ArrayList<>();
     ArrayList<Enemy> enemies=new ArrayList<>();
     ArrayList<Tower> towers=new ArrayList<>();
+    int money=150;
+    int lives=20;
     Timer gameTimer;
     int spawnCounter=0;
     int spawnType=0;
@@ -21,11 +23,25 @@ public class GamePanel extends JPanel implements ActionListener {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                towers.add(new Tower(e.getX(),e.getY()));
+                int cx = e.getX();
+                int cy = e.getY();
+
+                for (Tower tower : towers) {
+                    if (Math.abs(tower.x - cx) < 20 && Math.abs(tower.y - cy) < 20) {
+                        if (money >= 100) {
+                            tower.upgrade();
+                            money -= 100;
+                        }
+                        return;
+                    }
+                }
+                if (money >= 50 && lives > 0) {
+                    towers.add(new Tower(cx, cy));
+                    money -= 50;
+                }
             }
         });
-    }
-
+        }
     @Override
     protected void paintComponent(Graphics g) {
         g.setColor(new Color(200,200,150));
