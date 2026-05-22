@@ -126,6 +126,11 @@ public class GamePanel extends JPanel implements ActionListener {
             enemy.update();
             if (enemy.health <= 0|| enemy.x>getWidth()) {
                 toRemove.add(enemy);
+                money+=5;
+            } else if (enemy.x>700) {
+                toRemove.add(enemy);
+                lives -=1;
+
             }
         }
         enemies.removeAll(toRemove);
