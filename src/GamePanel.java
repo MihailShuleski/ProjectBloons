@@ -15,10 +15,10 @@ public class GamePanel extends JPanel implements ActionListener {
     int lives=20;
     Timer gameTimer;
     int spawnCounter=0;
-    int spawnType=0;
     int currentRound=1;
     int enemiesSpawned=0;
     int enemiesToSpawn=5;
+    int spawnDelay=60;
 
     public GamePanel(){
         gameTimer=new Timer(16,this);
@@ -87,11 +87,30 @@ public class GamePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        spawnCounter++;
-        if (spawnCounter>=60){
-            enemies.add(new Enemy(spawnType));
-            spawnType=(spawnType+1)% 3;
-            spawnCounter=0;
+        if (lives<= 0)
+            return;
+        if (enemiesSpawned>=enemiesToSpawn&& enemies.isEmpty()){
+            spawnCounter++;
+            if (spawnCounter>180){
+                currentRound++;
+                enemiesToSpawn=5+(currentRound*3);
+                enemiesSpawned=0;
+                spawnCounter=0;
+                spawnDelay=Math.max(10,60-(currentRound*5));
+            }
+        } else if (enemiesSpawned<enemiesToSpawn) {
+            spawnCounter++;
+            if (spawnCounter>=spawnDelay){
+                int type=0;
+                if (currentRound>2 && Math.random()<0.3)
+                    type=1;
+                if (currentRound>3 && Math.random()<0.2)
+                    type=2;
+                enemies.add(new Enemy(type));
+                enemiesSpawned++;
+                spawnCounter=0;
+
+            }
         }
         for (Tower tower:towers){
             tower.update(enemies,projectiles);
