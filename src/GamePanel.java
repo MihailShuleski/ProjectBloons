@@ -109,9 +109,15 @@ public class GamePanel extends JPanel implements ActionListener {
                 enemies.add(new Enemy(type));
                 enemiesSpawned++;
                 spawnCounter=0;
-
             }
         }
+        ArrayList<Projectile> deadProjectiles =new ArrayList<>();
+        for (Projectile projectile:projectiles){
+            projectile.update();
+            if (!projectile.active)
+                deadProjectiles.add(projectile);
+        }
+        projectiles.removeAll(deadProjectiles);
         for (Tower tower:towers){
             tower.update(enemies,projectiles);
         }
@@ -121,9 +127,6 @@ public class GamePanel extends JPanel implements ActionListener {
             if (enemy.health <= 0|| enemy.x>getWidth()) {
                 toRemove.add(enemy);
             }
-        }
-        for (Projectile projectile:projectiles){
-            projectile.update();
         }
         enemies.removeAll(toRemove);
         repaint();
