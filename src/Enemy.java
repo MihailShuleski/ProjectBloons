@@ -8,11 +8,14 @@ public class Enemy {
     int speed;
     int type;
     Color color;
+    int[] pathX={0,200,200,400,400,700};
+    int[] pathY={115,115,300,300,115,115};
+    int targetWaypoint;
 
     public Enemy(int type) {
         this.type = type;
-        this.y = 100; // spawn in the middle of our path
-        this.x = 0;
+        this.y=pathY[0];
+        this.x = pathX[0];
         if (type == 0) {
             typeName = "Normal";
             speed = 2;
@@ -36,11 +39,28 @@ public class Enemy {
         }
     }
     public void update(){
-        x +=speed;
+        if (targetWaypoint<pathX.length){
+            int targetX=pathX[targetWaypoint];
+            int targetY=pathY[targetWaypoint];
+            double dx=targetX-x;
+            double dy=targetY-y;
+            double dist=Math.sqrt(dx*dx+dy*dy);
+
+            if (dist<speed){
+                x=targetX;
+                y=targetY;
+                targetWaypoint++;
+            }else {
+                x+= (dx/dist)* speed;
+                y+= (dy/dist)*speed;
+            }
+        }else {
+            x=800;
+        }
     }
     public void draw(Graphics graphics){
         graphics.setColor(color);
-        graphics.fillOval(x,y-15,30,30);
+        graphics.fillOval(x-15,y-15,30,30);
     }
 
 }
