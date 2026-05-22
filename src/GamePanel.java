@@ -17,6 +17,8 @@ public class GamePanel extends JPanel implements ActionListener {
     int spawnCounter=0;
     int spawnType=0;
     int currentRound=1;
+    int enemiesSpawned=0;
+    int enemiesToSpawn=5;
 
     public GamePanel(){
         gameTimer=new Timer(16,this);
@@ -75,6 +77,11 @@ public class GamePanel extends JPanel implements ActionListener {
             g.setFont(new Font("Arial",Font.BOLD,50));
             g.setColor(Color.RED);
             g.drawString("GAME OVER",getWidth()/2-150,getHeight()/2);
+        } else if (enemiesSpawned>=enemiesToSpawn && enemies.isEmpty()) {
+            g.setFont(new Font("Arial",Font.BOLD,40));
+            g.setColor(Color.ORANGE);
+            g.drawString("WAVE CLEARED!",getWidth()/2-170,getHeight()/2);
+
         }
     }
 
