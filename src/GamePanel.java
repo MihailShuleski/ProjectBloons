@@ -75,7 +75,8 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         g.setFont(new Font("Arial",Font.BOLD,14));
         g.setColor(Color.BLACK);
-        g.drawString("Click anywhere to place a tower(50$),Click ON a tower to upgrade(100$)",10,20);
+        String selectionText=(towerType==0) ? "SELECTED: Dart Tower(50$)":"SELECTED: Bomb Tower(150$)";
+        g.drawString("Press 1 or 2 to switch between tower types: "+selectionText,10,20);
         g.setColor(new Color(0,120,0));
         g.drawString("Money: $ "+money,10,40);
         g.setColor(Color.RED);
@@ -137,7 +138,8 @@ public class GamePanel extends JPanel implements ActionListener {
             if (enemy.health <= 0|| enemy.x>getWidth()) {
                 toRemove.add(enemy);
                 money+=5;
-            } else if (enemy.x>700) {
+                totalPops++;
+            } else if (enemy.x>650) {
                 toRemove.add(enemy);
                 lives -=1;
 
