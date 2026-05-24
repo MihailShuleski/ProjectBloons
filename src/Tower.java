@@ -30,7 +30,12 @@ public class Tower {
                 for (Enemy enemy : enemies) {
                     double dist = Math.sqrt(Math.pow(enemy.x - x, 2) + Math.pow(enemy.y - y, 2));
                     if (dist <= range) {
-                        projectiles.add(new Projectile(x, y, enemy));
+                        boolean isExplosive=(type==1);
+                        projectiles.add(new Projectile(x, y, enemy,enemies,isExplosive));
+                        if (type==0)
+                            cooldown=40-(level*5);
+                        else
+                            cooldown=80-(level*8);
                         cooldown = 60 - level * 10;
                         if (cooldown < 10)
                             cooldown = 10;
@@ -43,15 +48,15 @@ public class Tower {
                 this.range += 40;
             }
             public void draw (Graphics graphics){
-                graphics.setColor(Color.DARK_GRAY);
-                graphics.fillRect(x - 20, y - 20, 40, 40);
+                graphics.setColor(type==0 ? new Color(232, 137, 79):Color.BLACK);
+                graphics.fillRect(x-15,y-15,30,30);
 
                 if (level > 1) {
                     graphics.setColor(Color.YELLOW);
-                    graphics.drawRect(x - 22, y - 22, 44, 44);
-                    graphics.drawString("Level: " + level, x - 15, y + 35);
+                    graphics.drawRect(x - 17, y - 17, 34, 34);
+                    graphics.drawString("Level: " + level, x - 10, y + 30);
                 }
-                graphics.setColor(new Color(0, 0, 0, 50));
+                graphics.setColor(new Color(0, 0, 0, 30));
                 graphics.drawOval(x - range, y - range, range * 2, range * 2);
             }
 
