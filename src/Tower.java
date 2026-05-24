@@ -36,7 +36,6 @@ public class Tower {
                             cooldown=40-(level*5);
                         else
                             cooldown=80-(level*8);
-                        cooldown = 60 - level * 10;
                         if (cooldown < 10)
                             cooldown = 10;
                         break;
