@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     }
                 }
                 if (money >= 50 && lives > 0) {
-                    towers.add(new Tower(cx, cy));
+                    towers.add(new Tower(cx, cy,1));
                     money -= 50;
                 }
             }
