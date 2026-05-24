@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -18,11 +15,23 @@ public class GamePanel extends JPanel implements ActionListener {
     int currentRound=1;
     int enemiesSpawned=0;
     int enemiesToSpawn=5;
+    int totalPops=0;
+    int towerType=0;
     int spawnDelay=60;
 
     public GamePanel(){
+        setFocusable(true);
         gameTimer=new Timer(16,this);
         gameTimer.start();
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyChar()=='1')
+                    towerType=0;
+                if (e.getKeyChar()=='2')
+                    towerType=1;
+            }
+        });
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -38,9 +47,10 @@ public class GamePanel extends JPanel implements ActionListener {
                         return;
                     }
                 }
-                if (money >= 50 && lives > 0) {
-                    towers.add(new Tower(cx, cy,1));
-                    money -= 50;
+                int cost=(towerType ==0) ? 50:150;
+                if (money >=cost&& lives>0){
+                    towers.add(new Tower(cx,cy,towerType));
+                    money-=cost;
                 }
             }
         });
