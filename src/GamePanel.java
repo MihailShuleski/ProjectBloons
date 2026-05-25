@@ -8,6 +8,7 @@ public class GamePanel extends JPanel implements ActionListener {
     ArrayList<Projectile> projectiles=new ArrayList<>();
     ArrayList<Enemy> enemies=new ArrayList<>();
     ArrayList<Tower> towers=new ArrayList<>();
+    ArrayList<ExplosionEffect> explosions=new ArrayList<>();
     int money=150;
     int lives=20;
     Timer gameTimer;
@@ -126,11 +127,18 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         ArrayList<Projectile> deadProjectiles =new ArrayList<>();
         for (Projectile projectile:projectiles){
-            projectile.update();
+            projectile.update(explosions);
             if (!projectile.active)
                 deadProjectiles.add(projectile);
         }
         projectiles.removeAll(deadProjectiles);
+        ArrayList<ExplosionEffect> deadExplosions=new ArrayList<>();
+        for (ExplosionEffect explosionEffect:deadExplosions){
+            explosionEffect.update();
+            if (explosionEffect.timer<=0)
+                deadExplosions.add(explosionEffect);
+        }
+        explosions.removeAll(deadExplosions);
         for (Tower tower:towers){
             tower.update(enemies,projectiles);
         }
