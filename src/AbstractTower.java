@@ -1,5 +1,3 @@
-import Balls.AbstractEnemy;
-
 import java.awt.*;
 import java.util.ArrayList;
 

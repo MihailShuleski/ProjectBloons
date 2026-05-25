@@ -1,28 +1,30 @@
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Projectile {
+public class Projectile implements GameObject{
     int x;
     int y;
     int speed=8;
-    Enemy target;
-    ArrayList<Enemy> allEnemies;
+    AbstractEnemy target;
+    ArrayList<AbstractEnemy> allEnemies;
     boolean active=true;
     boolean isExplosive=false;
     double lastTargetX;
     double lastTargetY;
 
-    public Projectile(int x,int y,Enemy target,ArrayList<Enemy> allEnemies,boolean isExplosive){
+    public Projectile(int x,int y,AbstractEnemy target,ArrayList<AbstractEnemy> allEnemies,boolean isExplosive){
         this.x=x;
         this.y=y;
         this.target=target;
         this.allEnemies=allEnemies;
         this.isExplosive=isExplosive;
-        this.lastTargetX=target.x;
-        this.lastTargetY=target.y;
+        this.lastTargetX=target.getX();
+        this.lastTargetY=target.getY();
         if (isExplosive)
             this.speed=4;
     }
+    @Override
+    public void update(){}
 
     public void update(ArrayList<ExplosionEffect> explosions) {
         if (!active)
@@ -30,9 +32,9 @@ public class Projectile {
         double tx=lastTargetX;
         double ty=lastTargetY;
 
-        if (target.health>0){
-            tx=target.x;
-            ty=target.y;
+        if (target.getHealth()>0){
+            tx=target.getX();
+            ty=target.getY();
             lastTargetX=tx;
             lastTargetY=ty;
         }
@@ -43,14 +45,14 @@ public class Projectile {
         if (dist < speed) {
             if (isExplosive) {
                 explosions.add(new ExplosionEffect(x,y));
-                for (Enemy enemy : allEnemies) {
-                    double explosionDistance = Math.sqrt(Math.pow(enemy.x - x, 2) + Math.pow(enemy.y - y, 2));
+                for (AbstractEnemy enemy : allEnemies) {
+                    double explosionDistance = Math.sqrt(Math.pow(enemy.getX() - x, 2) + Math.pow(enemy.getY() - y, 2));
                     if (explosionDistance < 55) {
-                        enemy.health--;
+                        enemy.takeDamage(1);
                     }
                 }
-            } else if (target.health>0){
-                target.health--;
+            } else if (target.getHealth()>0){
+                target.takeDamage(1);
             }
             active = false;
         } else {
@@ -58,6 +60,7 @@ public class Projectile {
             y += (dy / dist) * speed;
         }
     }
+    @Override
     public void draw(Graphics graphics){
         if (active){
             graphics.setColor(isExplosive ? Color.BLACK:Color.darkGray);

@@ -1,5 +1,3 @@
-package Balls;
-
 import java.awt.*;
 
 public class NormalBall extends AbstractEnemy {

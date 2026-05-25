@@ -1,5 +1,3 @@
-package Balls;
-
 import java.awt.*;
 
 public abstract class AbstractEnemy implements GameObject {
@@ -8,19 +6,19 @@ public abstract class AbstractEnemy implements GameObject {
     protected int health;
     protected int speed;
     protected Color color;
-    protected String typename;
+    protected String typeName;
 
     protected static int[] pathX={0,200,200,400,400,700};
     protected static int[] pathY={115,115,300,300,115,115};
     protected int targetWaypoint = 1;
 
-    public AbstractEnemy(int health,int speed,Color color,String typename){
+    public AbstractEnemy(int health,int speed,Color color,String typeName){
         this.x=pathX[0];
         this.y=pathY[0];
         this.health=health;
         this.speed=speed;
         this.color=color;
-        this.typename=typename;
+        this.typeName=typeName;
     }
 
     @Override
@@ -72,8 +70,8 @@ public abstract class AbstractEnemy implements GameObject {
         return health;
     }
 
-    public String getTypename() {
-        return typename;
+    public String getTypeName() {
+        return typeName;
     }
     public void takeDamage(int damage){
         this.health -=damage;
