@@ -1,3 +1,5 @@
+import Balls.AbstractEnemy;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -22,7 +24,7 @@ public abstract class AbstractTower implements GameObject {
         this.range +=20;
 
     }
-    public abstract void attack(ArrayList<AbstractEnemy>enemies,ArrayList<Projectile>projectiles);
+    public abstract void attack(ArrayList<AbstractEnemy>enemies, ArrayList<Projectile>projectiles);
 
     protected abstract void drawTowerBody(Graphics graphics);
 

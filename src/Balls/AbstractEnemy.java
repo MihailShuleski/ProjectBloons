@@ -1,3 +1,5 @@
+package Balls;
+
 import java.awt.*;
 
 public abstract class AbstractEnemy implements GameObject {
