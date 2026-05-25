@@ -100,8 +100,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (spawnCounter>120){
-        roundActive=true;}
+        roundActive=true;
         if (lives<= 0)
             return;
         if (roundActive){
@@ -111,7 +110,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     int type = (int) (Math.random() * 3);
                     if (currentRound > 5 && Math.random() < 0.2)
                         type = 3;
-                    enemies.add(new Enemy(type));
+                    enemies.add(new Enemy(3));
                     enemiesSpawned++;
                     spawnCounter = 0;
                 }

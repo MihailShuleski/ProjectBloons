@@ -49,13 +49,20 @@ public class Tower {
                 this.range += 40;
             }
             public void draw (Graphics graphics){
+                graphics.setColor(new Color(255,255,255,40));
+                graphics.fillOval(x-range,y-range,range*2,range*2);
+                graphics.setColor(new Color(0,0,0,100));
+                graphics.drawOval(x-range,y-range,range*2,range*2);
+
+
                 graphics.setColor(type==0 ? new Color(232, 137, 79):Color.BLACK);
                 graphics.fillRect(x-15,y-15,30,30);
 
                 if (level > 1) {
                     graphics.setColor(Color.YELLOW);
                     graphics.drawRect(x - 17, y - 17, 34, 34);
-                    graphics.drawString("Level: " + level, x - 10, y + 30);
+                    graphics.setFont(new Font("Arial",Font.BOLD,10));
+                    graphics.drawString("Level: " + level, x - 12, y - 20);
                 }
                 graphics.setColor(new Color(0, 0, 0, 30));
                 graphics.drawOval(x - range, y - range, range * 2, range * 2);
