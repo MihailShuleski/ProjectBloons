@@ -20,6 +20,7 @@ public class Tower {
             this.range = 120;
         } else {
             this.typeName = "Bomb Tower";
+            this.range=90;
         }
     }
             public void update (ArrayList < Enemy > enemies, ArrayList < Projectile > projectiles){

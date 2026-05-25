@@ -32,11 +32,23 @@ public class GamePanel extends JPanel implements ActionListener {
                     towerType=0;
                 if (e.getKeyChar()=='2')
                     towerType=1;
+                if (e.getKeyCode()==KeyEvent.VK_SPACE){
+                    if (!roundActive&& lives >0){
+                        currentRound++;
+                        enemiesToSpawn=5+(currentRound*2);
+                        enemiesSpawned=0;
+                        spawnCounter=0;
+                        spawnDelay=Math.max(10,60-(currentRound*2));
+                        money+=50;
+                        roundActive=true;
+                    }
+                }
             }
         });
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                requestFocusInWindow();
                 int cx = e.getX();
                 int cy = e.getY();
 
@@ -59,6 +71,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         g.setColor(new Color(200,200,150));
         Graphics2D graphics2D=(Graphics2D) g;
         graphics2D.setStroke(new BasicStroke(40,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND));
@@ -75,6 +88,9 @@ public class GamePanel extends JPanel implements ActionListener {
         for (Projectile projectile:projectiles){
             projectile.draw(g);
         }
+        for (ExplosionEffect explosionEffect:explosions){
+            explosionEffect.draw(g);
+        }
         g.setFont(new Font("Arial",Font.BOLD,14));
         g.setColor(Color.BLACK);
         String selectionText=(towerType==0) ? "SELECTED: Dart Tower(50$)":"SELECTED: Bomb Tower(150$)";
@@ -90,17 +106,19 @@ public class GamePanel extends JPanel implements ActionListener {
             g.setFont(new Font("Arial",Font.BOLD,50));
             g.setColor(Color.RED);
             g.drawString("GAME OVER",getWidth()/2-150,getHeight()/2);
-        } else if (enemiesSpawned>=enemiesToSpawn && enemies.isEmpty()) {
-            g.setFont(new Font("Arial",Font.BOLD,40));
+        } else if (!roundActive && lives>0) {
+            g.setFont(new Font("Arial",Font.BOLD,36));
             g.setColor(Color.ORANGE);
-            g.drawString("WAVE CLEARED!",getWidth()/2-170,getHeight()/2);
+            g.drawString("WAVE CLEARED!",getWidth()/2-150,getHeight()/2-30);
+            g.setFont(new Font("Arial",Font.BOLD,20));
+            g.setColor(Color.BLACK);
+            g.drawString("Press SPACE to start Round "+ (currentRound+1),getWidth()/2-150,getHeight()/2+30);
 
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        roundActive=true;
         if (lives<= 0)
             return;
         if (roundActive){
@@ -110,18 +128,12 @@ public class GamePanel extends JPanel implements ActionListener {
                     int type = (int) (Math.random() * 3);
                     if (currentRound > 5 && Math.random() < 0.2)
                         type = 3;
-                    enemies.add(new Enemy(2));
+                    enemies.add(new Enemy(type));
                     enemiesSpawned++;
                     spawnCounter = 0;
                 }
             } else if (enemies.isEmpty()) {
                 roundActive=false;
-                currentRound++;
-                enemiesToSpawn=5+(currentRound * 2);
-                enemiesSpawned=0;
-                spawnCounter=0;
-                spawnDelay=Math.max(10,60-(currentRound*2));
-                money+=50;
             }
         }
         ArrayList<Projectile> deadProjectiles =new ArrayList<>();
@@ -132,7 +144,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         projectiles.removeAll(deadProjectiles);
         ArrayList<ExplosionEffect> deadExplosions=new ArrayList<>();
-        for (ExplosionEffect explosionEffect:deadExplosions){
+        for (ExplosionEffect explosionEffect:explosions){
             explosionEffect.update();
             if (explosionEffect.timer<=0)
                 deadExplosions.add(explosionEffect);
@@ -144,11 +156,11 @@ public class GamePanel extends JPanel implements ActionListener {
         ArrayList<Enemy> toRemove=new ArrayList<>();
         for (Enemy enemy:enemies){
             enemy.update();
-            if (enemy.health <= 0|| enemy.x>getWidth()) {
+            if (enemy.health <= 0) {
                 toRemove.add(enemy);
                 money+=5;
                 totalPops++;
-            } else if (enemy.x>650) {
+            } else if (enemy.x>700 || enemy.targetWaypoint>=enemy.pathX.length ) {
                 toRemove.add(enemy);
                 lives -=1;
 
