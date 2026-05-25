@@ -18,6 +18,7 @@ public class GamePanel extends JPanel implements ActionListener {
     int totalPops=0;
     int towerType=0;
     int spawnDelay=60;
+    boolean roundActive = true;
 
     public GamePanel(){
         setFocusable(true);
@@ -98,28 +99,29 @@ public class GamePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (spawnCounter>120){
+        roundActive=true;}
         if (lives<= 0)
             return;
-        if (enemiesSpawned>=enemiesToSpawn&& enemies.isEmpty()){
-            spawnCounter++;
-            if (spawnCounter>180){
+        if (roundActive){
+            if (enemiesSpawned<enemiesToSpawn) {
+                spawnCounter++;
+                if (spawnCounter >= spawnDelay) {
+                    int type = (int) (Math.random() * 3);
+                    if (currentRound > 5 && Math.random() < 0.2)
+                        type = 3;
+                    enemies.add(new Enemy(type));
+                    enemiesSpawned++;
+                    spawnCounter = 0;
+                }
+            } else if (enemies.isEmpty()) {
+                roundActive=false;
                 currentRound++;
-                enemiesToSpawn=5+(currentRound*3);
+                enemiesToSpawn=5+(currentRound * 2);
                 enemiesSpawned=0;
                 spawnCounter=0;
-                spawnDelay=Math.max(10,60-(currentRound*5));
-            }
-        } else if (enemiesSpawned<enemiesToSpawn) {
-            spawnCounter++;
-            if (spawnCounter>=spawnDelay){
-                int type=0;
-                if (currentRound>2 && Math.random()<0.3)
-                    type=1;
-                if (currentRound>3 && Math.random()<0.2)
-                    type=2;
-                enemies.add(new Enemy(type));
-                enemiesSpawned++;
-                spawnCounter=0;
+                spawnDelay=Math.max(10,60-(currentRound*2));
+                money+=50;
             }
         }
         ArrayList<Projectile> deadProjectiles =new ArrayList<>();
