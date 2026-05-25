@@ -31,6 +31,12 @@ public class Enemy {
             speed = 1;
             health = 3;
             color = Color.GREEN; // Green bloon
+        }else if (type==3){
+            typeName= "Lead";
+            speed = 1;
+            health = 2;
+            color = Color.LIGHT_GRAY;
+
         } else {
             typeName = "Normal";
             speed = 2;

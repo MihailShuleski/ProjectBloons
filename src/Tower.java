@@ -28,6 +28,8 @@ public class Tower {
                     return;
                 }
                 for (Enemy enemy : enemies) {
+                    if (type==0&& enemy.typeName.equals("Lead"))
+                        continue;
                     double dist = Math.sqrt(Math.pow(enemy.x - x, 2) + Math.pow(enemy.y - y, 2));
                     if (dist <= range) {
                         boolean isExplosive=(type==1);
