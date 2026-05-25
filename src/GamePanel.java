@@ -110,7 +110,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     int type = (int) (Math.random() * 3);
                     if (currentRound > 5 && Math.random() < 0.2)
                         type = 3;
-                    enemies.add(new Enemy(3));
+                    enemies.add(new Enemy(2));
                     enemiesSpawned++;
                     spawnCounter = 0;
                 }

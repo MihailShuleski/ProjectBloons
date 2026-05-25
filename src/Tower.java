@@ -64,9 +64,6 @@ public class Tower {
                     graphics.setFont(new Font("Arial",Font.BOLD,10));
                     graphics.drawString("Level: " + level, x - 12, y - 20);
                 }
-                graphics.setColor(new Color(0, 0, 0, 30));
-                graphics.drawOval(x - range, y - range, range * 2, range * 2);
             }
-
         }
 

@@ -67,6 +67,14 @@ public class Enemy {
     public void draw(Graphics graphics){
         graphics.setColor(color);
         graphics.fillOval(x-15,y-15,30,30);
+
+        if (health>1){
+            graphics.setColor(Color.RED);
+            graphics.fillRect(x-15,y-25,30,5);
+            graphics.setColor(Color.GREEN);
+            int barWidth=(int)(30*(health/(type==2 ? 3 : 2)));
+            graphics.fillRect(x-15,y-25,barWidth,5);
+        }
     }
 
 }
