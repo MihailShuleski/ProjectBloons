@@ -58,8 +58,25 @@ public class GamePanel extends JPanel implements ActionListener {
                 int cy = e.getY();
                 int uiY= getHeight()-150;
 
+                if (cy >= uiY) {
+                    if (cx >= 205 && cx <= 305 && cy >= uiY + 35 && cy <= uiY + 130) {
+                        towerType = 0;
+                        repaint();
+                    }
+                    else if (cx >= 325 && cx <= 425 && cy >= uiY + 35 && cy <= uiY + 130) {
+                        towerType = 1;
+                        repaint();
+                    }
+                    else if (cx >= 465 && cx <= 575 && cy >= uiY + 45 && cy <= uiY + 105) {
+                        startNextRound();
+                        repaint();
+                    }
+                    return;
+                }
+
                 for (AbstractTower tower : towers) {
-                    if ((tower.x - cx) < 20 && (tower.y - cy) < 20) {
+                    double dist = Math.sqrt(Math.pow(tower.x - cx, 2) + Math.pow(tower.y - cy, 2));
+                    if (dist < 20) {
                         if (money >= 100) {
                             tower.upgrade();
                             money -= 100;
