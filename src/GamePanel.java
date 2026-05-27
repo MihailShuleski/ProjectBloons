@@ -56,6 +56,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 requestFocusInWindow();
                 int cx = e.getX();
                 int cy = e.getY();
+                int uiY= getHeight()-150;
 
                 for (AbstractTower tower : towers) {
                     if ((tower.x - cx) < 20 && (tower.y - cy) < 20) {
@@ -302,4 +303,16 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         enemies.removeAll(toRemove);
     }
+    private void startNextRound() {
+        if (!roundActive && lives > 0) {
+            currentRound++;
+            enemiesToSpawn = 5 + (currentRound * 2);
+            enemiesSpawned = 0;
+            spawnCounter = 0;
+            spawnDelay = Math.max(10, 60 - (currentRound * 2));
+            money += 50;
+            roundActive = true;
+        }
+    }
+
 }
