@@ -266,11 +266,11 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void spawnNextEnemy() {
         double rand = Math.random();
-        if (currentRound > 3 && rand < 0.2)
+        if (currentRound > 3 && rand < 0.4)
             enemies.add(new TankBall());
-        else if (currentRound > 5 && rand < 0.15)
+        else if (currentRound > 5 && rand < 0.3)
             enemies.add(new LeadBall());
-        else if (currentRound > 2 && rand < 0.3)
+        else if (currentRound > 2 && rand < 0.5)
             enemies.add(new SpeedBall());
         else
             enemies.add(new NormalBall());
@@ -278,7 +278,6 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void completeRound() {
         roundActive = false;
-        currentRound++;
         enemiesToSpawn = 5 + (currentRound * 2);
         enemiesSpawned = 0;
         spawnDelay = Math.max(10, 60 - (currentRound * 2));
