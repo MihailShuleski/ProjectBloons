@@ -13,13 +13,13 @@ public class GamePanel extends JPanel implements ActionListener {
     int lives = 20;
     Timer gameTimer;
     int spawnCounter = 0;
-    int currentRound = 1;
+    int currentRound = 0;
     int enemiesSpawned = 0;
     int enemiesToSpawn = 5;
     int totalPops = 0;
     int towerType = 0;
     int spawnDelay = 60;
-    boolean roundActive = true;
+    boolean roundActive = false;
 
     public GamePanel() {
         setFocusable(true);
@@ -39,13 +39,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                     if (!roundActive && lives > 0) {
-                        currentRound++;
-                        enemiesToSpawn = 5 + (currentRound * 2);
-                        enemiesSpawned = 0;
-                        spawnCounter = 0;
-                        spawnDelay = Math.max(10, 60 - (currentRound * 2));
-                        money += 50;
-                        roundActive = true;
+                        startNextRound();
+                        repaint();
                     }
                 }
             }
@@ -104,10 +99,15 @@ public class GamePanel extends JPanel implements ActionListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(new Color(200, 200, 150));
+        g.setColor(new Color(75, 158, 51));
+        g.fillRect(0, 0, getWidth(), getHeight());
+
         Graphics2D graphics2D = (Graphics2D) g;
+        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        graphics2D.setColor(new Color(129, 126, 114));
         graphics2D.setStroke(new BasicStroke(40, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        graphics2D.drawPolyline(AbstractEnemy.pathX,AbstractEnemy.pathY,AbstractEnemy.pathX.length);
+        graphics2D.drawPolyline(AbstractEnemy.pathX, AbstractEnemy.pathY, AbstractEnemy.pathX.length);
 
         for (AbstractTower tower : towers) {
             tower.draw(g);
