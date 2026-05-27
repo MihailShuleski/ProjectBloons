@@ -103,7 +103,6 @@ public class GamePanel extends JPanel implements ActionListener {
         g.fillRect(0, 0, getWidth(), getHeight());
 
         Graphics2D graphics2D = (Graphics2D) g;
-        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         graphics2D.setColor(new Color(129, 126, 114));
         graphics2D.setStroke(new BasicStroke(40, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
@@ -141,7 +140,6 @@ public class GamePanel extends JPanel implements ActionListener {
         g.fillRect(0, uiY, width, 4);
 
         Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         int statsX = 30;
         g2.setFont(new Font("Segoe UI", Font.BOLD, 15));
