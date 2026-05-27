@@ -8,7 +8,7 @@ public class GamePanel extends JPanel implements ActionListener {
     ArrayList<AbstractEnemy> enemies = new ArrayList<>();
     ArrayList<AbstractTower> towers = new ArrayList<>();
     ArrayList<ExplosionEffect> explosions = new ArrayList<>();
-    int money = 150;
+    int money = 50;
     int lives = 20;
     Timer gameTimer;
     int spawnCounter = 0;
@@ -184,7 +184,7 @@ public class GamePanel extends JPanel implements ActionListener {
         g2.fillRect(btn1X + 35, btnY + 15, 30, 30);
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        g2.drawString("Dart Monkey", btn1X + 13, btnY + 65);
+        g2.drawString("Dart Tower", btn1X + 13, btnY + 65);
         g2.setColor(new Color(255, 215, 0));
         g2.drawString("$50", btn1X + 38, btnY + 82);
         int btn2X = 325;
@@ -205,7 +205,7 @@ public class GamePanel extends JPanel implements ActionListener {
         g2.fillRect(btn2X + 35, btnY + 15, 30, 30);
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        g2.drawString("Bomb Shooter", btn2X + 11, btnY + 65);
+        g2.drawString("Bomb Tower", btn2X + 11, btnY + 65);
         g2.setColor(new Color(255, 215, 0));
         g2.drawString("$150", btn2X + 35, btnY + 82);
         g2.setStroke(new BasicStroke(1));
@@ -266,10 +266,10 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void spawnNextEnemy() {
         double rand = Math.random();
-        if (currentRound > 3 && rand < 0.4)
-            enemies.add(new TankBall());
-        else if (currentRound > 5 && rand < 0.3)
+        if (currentRound > 5 && rand < 0.3)
             enemies.add(new LeadBall());
+        else if (currentRound > 3 && rand < 0.4)
+            enemies.add(new TankBall());
         else if (currentRound > 2 && rand < 0.5)
             enemies.add(new SpeedBall());
         else
@@ -281,7 +281,7 @@ public class GamePanel extends JPanel implements ActionListener {
         enemiesToSpawn = 5 + (currentRound * 2);
         enemiesSpawned = 0;
         spawnDelay = Math.max(10, 60 - (currentRound * 2));
-        money += 100;
+        money += 25;
     }
 
     private void updateGameObjects() {
@@ -311,7 +311,7 @@ public class GamePanel extends JPanel implements ActionListener {
             enemy.update();
             if (enemy.getHealth() <= 0) {
                 toRemove.add(enemy);
-                money += 5;
+                money += 1;
                 totalPops++;
             } else if (enemy.hasReachedEnd()) {
                 toRemove.add(enemy);
@@ -327,7 +327,6 @@ public class GamePanel extends JPanel implements ActionListener {
             enemiesSpawned = 0;
             spawnCounter = 0;
             spawnDelay = Math.max(10, 60 - (currentRound * 2));
-            money += 50;
             roundActive = true;
         }
     }
