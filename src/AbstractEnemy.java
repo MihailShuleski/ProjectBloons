@@ -8,8 +8,8 @@ public abstract class AbstractEnemy implements GameObject {
     protected Color color;
     protected String typeName;
 
-    protected static int[] pathX={0,200,200,400,400,700};
-    protected static int[] pathY={115,115,300,300,115,115};
+    protected static int[] pathX={-40, 480, 480, 80, 80, 480, 480, -40};
+    protected static int[] pathY={80, 80, 220, 220, 360, 360, 500, 500};
     protected int targetWaypoint = 1;
 
     public AbstractEnemy(int health,int speed,Color color,String typeName){
@@ -45,7 +45,7 @@ public abstract class AbstractEnemy implements GameObject {
     @Override
     public void draw(Graphics graphics){
         graphics.setColor(color);
-        graphics.fillOval((int) (x-15),(int)y-15,30,5);
+        graphics.fillOval((int) (x-15),(int)y-15,30,30);
 
         if (health>1){
             graphics.setColor(Color.red);
@@ -75,5 +75,8 @@ public abstract class AbstractEnemy implements GameObject {
     }
     public void takeDamage(int damage){
         this.health -=damage;
+    }
+    public boolean hasReachedEnd(){
+        return targetWaypoint>=pathX.length;
     }
 }
