@@ -82,6 +82,11 @@ public class GamePanel extends JPanel implements ActionListener {
                             money -= 100;
                         }
                         return;
+                    } else if (dist<30) {
+                        return;
+                    }
+                    if (isNearPath(cx,cy)){
+                        return;
                     }
                 }
                 int cost = (towerType == 0) ? 50 : 150;
@@ -331,5 +336,21 @@ public class GamePanel extends JPanel implements ActionListener {
             roundActive = true;
         }
     }
-
+    private boolean isNearPath(int cx, int cy) {
+        for (int i = 0; i < AbstractEnemy.pathX.length - 1; i++) {
+            int ax = AbstractEnemy.pathX[i];
+            int ay = AbstractEnemy.pathY[i];
+            int bx = AbstractEnemy.pathX[i+1];
+            int by = AbstractEnemy.pathY[i+1];
+            int minX = Math.min(ax, bx);
+            int maxX = Math.max(ax, bx);
+            int minY = Math.min(ay, by);
+            int maxY = Math.max(ay, by);
+            if (cx >= minX - 45 && cx <= maxX + 45 && cy >= minY - 45 && cy <= maxY + 45) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
+
