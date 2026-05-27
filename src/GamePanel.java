@@ -28,10 +28,15 @@ public class GamePanel extends JPanel implements ActionListener {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyChar() == '1')
+                if (e.getKeyChar() == '1'){
                     towerType = 0;
-                if (e.getKeyChar() == '2')
+                    repaint();
+                }
+                if (e.getKeyChar() == '2'){
                     towerType = 1;
+                    repaint();
+                }
+
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                     if (!roundActive && lives > 0) {
                         currentRound++;
@@ -53,7 +58,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 int cy = e.getY();
 
                 for (AbstractTower tower : towers) {
-                    if (Math.abs(tower.x - cx) < 20 && Math.abs(tower.y - cy) < 20) {
+                    if ((tower.x - cx) < 20 && (tower.y - cy) < 20) {
                         if (money >= 100) {
                             tower.upgrade();
                             money -= 100;
@@ -136,7 +141,7 @@ public class GamePanel extends JPanel implements ActionListener {
             g.setColor(Color.YELLOW);
             g.fillRect(460, 400, 130, 40);
             g.setColor(Color.BLACK);
-            g.drawString("START WAVE", 475, 425);
+            g.drawString("PRESS SPACE TO START WAVE", 475, 425);
         }
     }
 
@@ -188,11 +193,7 @@ public class GamePanel extends JPanel implements ActionListener {
         money += 100;
     }
 
-    /**
-     * Updates all active entities in the simulation.
-     */
     private void updateGameObjects() {
-        // Projectiles & Explosions
         ArrayList<Projectile> deadProjectiles = new ArrayList<>();
         for (Projectile p : projectiles) {
             p.update(explosions);
@@ -209,7 +210,6 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         explosions.removeAll(deadEx);
 
-        // Towers & Enemies
         for (AbstractTower t : towers) {
             t.update();
             t.attack(enemies, projectiles);
