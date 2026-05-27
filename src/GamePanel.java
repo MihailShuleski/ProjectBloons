@@ -246,7 +246,6 @@ public class GamePanel extends JPanel implements ActionListener {
             if (lives <= 0)
                 return;
 
-            // Spawning logic
             if (roundActive) {
                 if (enemiesSpawned < enemiesToSpawn) {
                     spawnCounter++;
