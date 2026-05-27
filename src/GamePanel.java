@@ -225,7 +225,6 @@ public class GamePanel extends JPanel implements ActionListener {
             g2.setFont(new Font("Segoe UI", Font.PLAIN, 10));
             g2.drawString("Defend the exit!", ctrlX + 17, uiY + 90);
         } else if (lives > 0) {
-            // Draw interactive button
             g2.setColor(new Color(255, 195, 0));
             g2.fillRoundRect(ctrlX, uiY + 45, 110, 60, 12, 12);
             g2.setColor(new Color(255, 255, 255, 180));
