@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements ActionListener {
@@ -79,11 +78,12 @@ public class GamePanel extends JPanel implements ActionListener {
                         return;
                     } else if (dist<30) {
                         return;
-                    }
+                    }}
+
                     if (isNearPath(cx,cy)){
                         return;
                     }
-                }
+
                 int cost = (towerType == 0) ? 50 : 150;
                 if (money >= cost && lives > 0) {
                     if (towerType == 0)
