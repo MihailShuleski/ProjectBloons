@@ -84,9 +84,7 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setColor(new Color(200, 200, 150));
         Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.setStroke(new BasicStroke(40, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        int[] pathX = {0, 200, 200, 400, 400, 700};
-        int[] pathY = {115, 115, 300, 300, 115, 115};
-        graphics2D.drawPolyline(pathX, pathY, pathX.length);
+        graphics2D.drawPolyline(AbstractEnemy.pathX,AbstractEnemy.pathY,AbstractEnemy.pathX.length);
 
         for (AbstractTower tower : towers) {
             tower.draw(g);
@@ -110,40 +108,115 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private void drawUI(Graphics g) {
-        g.setColor(new Color(60, 60, 60, 220));
-        g.fillRect(450, 0, 150, getHeight());
+        int uiHeight=150;
+        int uiY=getHeight()-uiHeight;
+        int width=getWidth();
+        g.setColor(new Color(25,25,35,240));
+        g.fillRect(0,uiY,width,uiHeight);
 
-        g.setFont(new Font("Arial", Font.BOLD, 15));
-        g.setColor(Color.WHITE);
-        g.drawString("MONEY: $" + money, 460, 40);
-        g.setColor(Color.RED);
-        g.drawString("LIVES: " + lives, 460, 70);
-        g.setColor(Color.BLUE);
-        g.drawString("ROUND: " + currentRound, 460, 100);
-        g.setColor(Color.MAGENTA);
-        g.drawString("POPS: " + totalPops, 460, 130);
+        g.setColor(new Color(13, 43, 206));
+        g.fillRect(0, uiY, width, 4);
 
-        g.setColor(Color.WHITE);
-        g.drawString("BUILD:", 460, 190);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        int statsX = 30;
+        g2.setFont(new Font("Segoe UI", Font.BOLD, 15));
+
+        g2.setColor(new Color(255, 215, 0));
+        g2.drawString("MONEY: $" + money, statsX, uiY + 35);
+
+        g2.setColor(new Color(255, 75, 75));
+        g2.drawString("LIVES: " + lives, statsX, uiY + 65);
+
+        g2.setColor(new Color(65, 180, 255));
+        g2.drawString("ROUND: " + currentRound, statsX, uiY + 95);
+
+        g2.setColor(new Color(230, 100, 255));
+        g2.drawString("POPS: " + totalPops, statsX, uiY + 125);
+
+        g2.setColor(new Color(255, 255, 255, 30));
+        g2.fillRect(180, uiY + 20, 2, 110);
+
+        g2.setColor(Color.WHITE);
+        g2.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        g2.drawString("TOWER SHOP", 205, uiY + 25);
+        int btnY = uiY + 35;
+        int btnWidth = 100;
+        int btnHeight = 95;
+        int btn1X = 205;
+
         if (towerType == 0) {
-            g.setColor(new Color(139, 69, 19));
-            g.fillRect(460, 205, 30, 30);
-            g.setColor(Color.WHITE);
-            g.drawString("Dart ($50)", 460, 255);
+            g2.setColor(new Color(13, 43, 206, 60));
+            g2.fillRoundRect(btn1X, btnY, btnWidth, btnHeight, 10, 10);
+            g2.setColor(new Color(13, 43, 206));
+            g2.setStroke(new BasicStroke(2.5f));
+            g2.drawRoundRect(btn1X, btnY, btnWidth, btnHeight, 10, 10);
         } else {
-            g.setColor(Color.BLACK);
-            g.fillRect(460, 205, 30, 30);
-            g.setColor(Color.WHITE);
-            g.drawString("Bomb ($150)", 460, 255);
+            g2.setColor(new Color(255, 255, 255, 10));
+            g2.fillRoundRect(btn1X, btnY, btnWidth, btnHeight, 10, 10);
+            g2.setColor(new Color(255, 255, 255, 30));
+            g2.setStroke(new BasicStroke(1));
+            g2.drawRoundRect(btn1X, btnY, btnWidth, btnHeight, 10, 10);
         }
+        g2.setColor(new Color(139, 69, 19));
+        g2.fillRect(btn1X + 35, btnY + 15, 30, 30);
+        g2.setColor(Color.WHITE);
+        g2.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        g2.drawString("Dart Monkey", btn1X + 13, btnY + 65);
+        g2.setColor(new Color(255, 215, 0));
+        g2.drawString("$50", btn1X + 38, btnY + 82);
+        int btn2X = 325;
+        if (towerType == 1) {
+            g2.setColor(new Color(13, 43, 206, 60));
+            g2.fillRoundRect(btn2X, btnY, btnWidth, btnHeight, 10, 10);
+            g2.setColor(new Color(13, 43, 206));
+            g2.setStroke(new BasicStroke(2.5f));
+            g2.drawRoundRect(btn2X, btnY, btnWidth, btnHeight, 10, 10);
+        } else {
+            g2.setColor(new Color(255, 255, 255, 10));
+            g2.fillRoundRect(btn2X, btnY, btnWidth, btnHeight, 10, 10);
+            g2.setColor(new Color(255, 255, 255, 30));
+            g2.setStroke(new BasicStroke(1));
+            g2.drawRoundRect(btn2X, btnY, btnWidth, btnHeight, 10, 10);
+        }
+        g2.setColor(Color.BLACK);
+        g2.fillRect(btn2X + 35, btnY + 15, 30, 30);
+        g2.setColor(Color.WHITE);
+        g2.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        g2.drawString("Bomb Shooter", btn2X + 11, btnY + 65);
+        g2.setColor(new Color(255, 215, 0));
+        g2.drawString("$150", btn2X + 35, btnY + 82);
+        g2.setStroke(new BasicStroke(1));
+        g2.setColor(new Color(255, 255, 255, 30));
+        g2.fillRect(445, uiY + 20, 2, 110);
+        int ctrlX = 465;
+        if (roundActive) {
+            g2.setColor(new Color(65, 180, 255, 30));
+            g2.fillRoundRect(ctrlX, uiY + 45, 110, 60, 12, 12);
+            g2.setColor(new Color(65, 180, 255));
+            g2.setStroke(new BasicStroke(1.5f));
+            g2.drawRoundRect(ctrlX, uiY + 45, 110, 60, 12, 12);
+            g2.setFont(new Font("Segoe UI", Font.BOLD, 13));
+            g2.drawString("WAVE ACTIVE", ctrlX + 12, uiY + 70);
+            g2.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+            g2.drawString("Defend the exit!", ctrlX + 17, uiY + 90);
+        } else if (lives > 0) {
+            // Draw interactive button
+            g2.setColor(new Color(255, 195, 0));
+            g2.fillRoundRect(ctrlX, uiY + 45, 110, 60, 12, 12);
+            g2.setColor(new Color(255, 255, 255, 180));
+            g2.setStroke(new BasicStroke(2));
+            g2.drawRoundRect(ctrlX, uiY + 45, 110, 60, 12, 12);
 
-        if (!roundActive && lives > 0) {
-            g.setColor(Color.YELLOW);
-            g.fillRect(460, 400, 130, 40);
-            g.setColor(Color.BLACK);
-            g.drawString("PRESS SPACE TO START WAVE", 475, 425);
+            g2.setColor(Color.BLACK);
+            g2.setFont(new Font("Segoe UI", Font.BOLD, 13));
+            g2.drawString("START WAVE", ctrlX + 14, uiY + 72);
+            g2.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+            g2.drawString("Press Space or Click", ctrlX + 8, uiY + 90);
         }
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -222,7 +295,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 toRemove.add(enemy);
                 money += 5;
                 totalPops++;
-            } else if (enemy.getX() > 650) {
+            } else if (enemy.hasReachedEnd()) {
                 toRemove.add(enemy);
                 lives -= 1;
             }
