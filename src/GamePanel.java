@@ -116,6 +116,10 @@ public class GamePanel extends JPanel implements ActionListener {
         graphics2D.setStroke(new BasicStroke(46, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         graphics2D.drawPolyline(AbstractEnemy.pathX, AbstractEnemy.pathY, AbstractEnemy.pathX.length);
 
+        graphics2D.setColor(new Color(129, 126, 114));
+        graphics2D.setStroke(new BasicStroke(40, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        graphics2D.drawPolyline(AbstractEnemy.pathX, AbstractEnemy.pathY, AbstractEnemy.pathX.length);
+
         for (AbstractTower tower : towers) {
             tower.draw(g);
         }
