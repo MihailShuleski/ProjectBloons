@@ -397,5 +397,27 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         return false;
     }
+    private void restartGame() {
+        projectiles.clear();
+        enemies.clear();
+        towers.clear();
+        explosions.clear();
+        money = 50;
+        lives = 20;
+        spawnCounter = 0;
+        currentRound = 0;
+        enemiesSpawned = 0;
+        enemiesToSpawn = 5;
+        totalPops = 0;
+        towerType = 0;
+        spawnDelay = 60;
+        roundActive = false;
+    }
+    private void returnToMainMenu() {
+        Window parent=SwingUtilities.getWindowAncestor(this);
+        parent.dispose();
+        new MainMenu().showTitleScreen();
+    }
 }
+
 
