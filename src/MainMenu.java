@@ -36,7 +36,7 @@ public class MainMenu extends JFrame {
         gbc.insets = new Insets(0, 0, 35, 0);
         JLabel subtitleLabel = new JLabel("Defend the Path!");
         subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        subtitleLabel.setForeground(new Color(160, 160, 190));
+        subtitleLabel.setForeground(new Color(189, 189, 220));
         card.add(subtitleLabel, gbc);
 
         gbc.gridy = 2;

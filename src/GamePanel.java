@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     repaint();
                 }
 
-                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                if (e.getKeyChar() == KeyEvent.VK_SPACE) {
                     if (!roundActive && lives > 0) {
                         startNextRound();
                         repaint();
