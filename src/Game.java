@@ -6,7 +6,7 @@ public class Game {
 
 
     public void showMenu(){
-        JFrame frame=new JFrame("Simple Tower Defense");
+        JFrame frame=new JFrame("Ball TD 6");
         frame.setSize(600,800);
         frame.setLayout(new BorderLayout());
         frame.setLocationRelativeTo(null);
