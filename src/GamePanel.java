@@ -48,11 +48,32 @@ public class GamePanel extends JPanel implements ActionListener {
         });
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 requestFocusInWindow();
                 int cx = e.getX();
                 int cy = e.getY();
                 int uiY= getHeight()-150;
+                if (lives <= 0) {
+                    int cardW = 360;
+                    int cardH = 280;
+                    int cardX = (getWidth() - cardW) / 2;
+                    int cardY = (getHeight() - cardH) / 2;
+                    int btnW = 240;
+                    int btnH = 40;
+                    int btnX = cardX + (cardW - btnW) / 2;
+                    int restartY = cardY + 170;
+                    if (cx >= btnX && cx <= btnX + btnW && cy >= restartY && cy <= restartY + btnH) {
+                        restartGame();
+                        repaint();
+                    }
+                    int menuY = cardY + 220;
+                    if (cx >= btnX && cx <= btnX + btnW && cy >= menuY && cy <= menuY + btnH) {
+                        returnToMainMenu();
+                        repaint();
+                    }
+                    return;
+                }
+
 
                 if (cy >= uiY) {
                     if (cx >= 205 && cx <= 305 && cy >= uiY + 35 && cy <= uiY + 130) {
@@ -80,8 +101,8 @@ public class GamePanel extends JPanel implements ActionListener {
                         return;
                     } else if (dist<30) {
                         return;
-                    }}
-
+                    }
+                }
                     if (isNearPath(cx,cy)){
                         return;
                     }
@@ -309,7 +330,6 @@ public class GamePanel extends JPanel implements ActionListener {
                     completeRound();
                 }
             }
-
             updateGameObjects();
             repaint();
         } catch (Exception ex) {
