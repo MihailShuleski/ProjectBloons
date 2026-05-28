@@ -19,6 +19,8 @@ public class GamePanel extends JPanel implements ActionListener {
     int towerType = 0;
     int spawnDelay = 60;
     boolean roundActive = false;
+    int mouseX=-1000;
+    int mouseY=-1000;
 
     public GamePanel() {
         setFocusable(true);
