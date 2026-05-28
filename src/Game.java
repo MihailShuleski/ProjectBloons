@@ -12,8 +12,10 @@ public class Game {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.add(new GamePanel());
+        GamePanel panel = new GamePanel();
+        frame.add(panel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        panel.requestFocusInWindow();
     }
 }
