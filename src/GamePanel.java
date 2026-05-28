@@ -134,9 +134,48 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         drawUI(graphics2D);
         if (lives <= 0) {
-            g.setFont(new Font("Arial", Font.BOLD, 40));
-            g.setColor(Color.RED);
-            g.drawString("GAME OVER", 110, getHeight() / 2);
+            graphics2D.setColor(new Color(15, 15, 25, 200));
+            graphics2D.fillRect(0, 0, getWidth(), getHeight());
+            int cardW = 360;
+            int cardH = 280;
+            int cardX = (getWidth() - cardW) / 2;
+            int cardY = (getHeight() - cardH) / 2;
+            graphics2D.setColor(new Color(25, 25, 38, 245));
+            graphics2D.fillRoundRect(cardX, cardY, cardW, cardH, 24, 24);
+            graphics2D.setColor(new Color(255, 255, 255, 25));
+            graphics2D.setStroke(new BasicStroke(1.5f));
+            graphics2D.drawRoundRect(cardX, cardY, cardW, cardH, 24, 24);
+            graphics2D.setFont(new Font("Segoe UI", Font.BOLD, 36));
+            graphics2D.setColor(new Color(255, 75, 75));
+            String gameOverText = "GAME OVER";
+            FontMetrics fm = graphics2D.getFontMetrics();
+            graphics2D.drawString(gameOverText, cardX + (cardW - fm.stringWidth(gameOverText)) / 2, cardY + 55);
+            graphics2D.setFont(new Font("Segoe UI", Font.BOLD, 15));
+            graphics2D.setColor(new Color(180, 180, 200));
+            String statRound = "Round Reached: " + currentRound;
+            String statPops = "Total Pops: " + totalPops;
+            graphics2D.drawString(statRound, cardX + (cardW - graphics2D.getFontMetrics().stringWidth(statRound)) / 2, cardY + 105);
+            graphics2D.drawString(statPops, cardX + (cardW - graphics2D.getFontMetrics().stringWidth(statPops)) / 2, cardY + 135);
+            int btnW = 240;
+            int btnH = 40;
+            int btnX = cardX + (cardW - btnW) / 2;
+
+            int restartY = cardY + 170;
+            boolean hoverRestart = mouseX >= btnX && mouseX <= btnX + btnW && mouseY >= restartY && mouseY <= restartY + btnH;
+            graphics2D.setColor(hoverRestart ? new Color(37, 76, 245) : new Color(13, 43, 206));
+            graphics2D.fillRoundRect(btnX, restartY, btnW, btnH, 12, 12);
+            graphics2D.setColor(Color.WHITE);
+            graphics2D.setFont(new Font("Segoe UI", Font.BOLD, 14));
+            String restartText = "RESTART GAME";
+            graphics2D.drawString(restartText, btnX + (btnW - graphics2D.getFontMetrics().stringWidth(restartText)) / 2, restartY + 25);
+
+            int menuY = cardY + 220;
+            boolean hoverMenu = mouseX >= btnX && mouseX <= btnX + btnW && mouseY >= menuY && mouseY <= menuY + btnH;
+            graphics2D.setColor(hoverMenu ? new Color(80, 82, 105) : new Color(58, 59, 76));
+            graphics2D.fillRoundRect(btnX, menuY, btnW, btnH, 12, 12);
+            graphics2D.setColor(Color.WHITE);
+            String menuText = "RETURN TO MENU";
+            graphics2D.drawString(menuText, btnX + (btnW - graphics2D.getFontMetrics().stringWidth(menuText)) / 2, menuY + 25);
         }
 
     }
