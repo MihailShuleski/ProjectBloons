@@ -94,6 +94,14 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
             }
         });
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                mouseX = e.getX();
+                mouseY = e.getY();
+                repaint();
+            }
+        });
     }
 
     @Override
