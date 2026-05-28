@@ -34,9 +34,9 @@ public abstract class AbstractTower implements GameObject {
 
     @Override
     public void draw(Graphics graphics){
-        graphics.setColor(new Color(255, 255, 255, 40));
+        graphics.setColor(new Color(255, 255, 255, 8));
         graphics.fillOval(x - range, y - range, range * 2, range * 2);
-        graphics.setColor(new Color(0, 0, 0, 100));
+        graphics.setColor(new Color(0, 0, 0, 42));
         graphics.drawOval(x - range, y - range, range * 2, range * 2);
 
         drawTowerBody(graphics);

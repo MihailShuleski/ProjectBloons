@@ -47,7 +47,7 @@ public abstract class AbstractEnemy implements GameObject {
         graphics.setColor(color);
         graphics.fillOval((int) (x-15),(int)y-15,30,30);
 
-        if (health>1){
+        if (health< getMaxHealth()){
             graphics.setColor(Color.red);
             graphics.fillRect((int) (x-15), (int) (y-25),30,5);
             graphics.setColor(Color.GREEN);
