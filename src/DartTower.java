@@ -1,12 +1,27 @@
 import java.awt.*;
 import java.util.ArrayList;
-
+/**
+ * Represents a Dart Tower (Dart Monkey).
+ * Attacks single targets with moderate range and fast reload speed.
+ * Normal darts cannot pop Lead Balls.
+ */
 public class DartTower extends AbstractTower {
+    /**
+     * Constructs a DartTower at the specified coordinates.
+     *
+     * @param x the X coordinate
+     * @param y the Y coordinate
+     */
     public DartTower(int x, int y) {
         super(x, y, 120, 0, "Dart Tower");
     }
 
-
+    /**
+     * Attacks the first enemy in range that is not immune to darts.
+     *
+     * @param enemies     the list of active enemies on the field
+     * @param projectiles the list of active projectiles to add new attacks to
+     */
     @Override
     public void attack(ArrayList<AbstractEnemy> enemies, ArrayList<Projectile> projectiles) {
         if (cooldown > 0)
@@ -27,7 +42,11 @@ public class DartTower extends AbstractTower {
             }
         }
     }
-
+    /**
+     * Draws the visual body of the Dart Tower (brown rectangle).
+     *
+     * @param graphics the Graphics context used for drawing
+     */
     @Override
     protected void drawTowerBody(Graphics graphics) {
         graphics.setColor(new Color(139, 69, 19));

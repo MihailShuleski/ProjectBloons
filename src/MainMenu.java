@@ -1,11 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Represents the main menu window of the game.
+ * Provides options to start the game, view instructions, or exit the game.
+ */
 public class MainMenu extends JFrame {
+    /**
+     * Constructs a MainMenu frame with the title "Ball TD 6".
+     */
     public MainMenu(){
         super("Ball TD 6");
     }
-
+    /**
+     * Sets up and displays the main menu title screen, featuring a background panel,
+     * a card container, title, subtitle, and buttons for options.
+     */
     public void showTitleScreen() {
         this.setSize(500, 560);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,7 +88,9 @@ public class MainMenu extends JFrame {
 
 
 
-
+    /**
+     * Creates and opens a modal dialog explaining how to play the game.
+     */
     private void showHelpDialog() {
         JDialog dialog = new JDialog(this, "How to Play", true);
         dialog.setSize(440, 480);

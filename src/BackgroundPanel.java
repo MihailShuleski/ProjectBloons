@@ -1,7 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * A custom JPanel that paints a premium, modern dark gradient background
+ * with decorative translucent blur spheres.
+ */
 public class BackgroundPanel extends JPanel {
+    /**
+     * Overrides paintComponent to render a custom modern color gradient
+     * with decorative soft spheres.
+     *
+     * @param g the Graphics context used for drawing
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -2,14 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-
+/**
+ * The main game panel representing the playing board and UI stats bar.
+ * Handles the game loop timer, entity updates, drawing, and user inputs (mouse and keyboard).
+ */
 public class GamePanel extends JPanel implements ActionListener {
     ArrayList<Projectile> projectiles = new ArrayList<>();
     ArrayList<AbstractEnemy> enemies = new ArrayList<>();
     ArrayList<AbstractTower> towers = new ArrayList<>();
     ArrayList<ExplosionEffect> explosions = new ArrayList<>();
     int money = 50;
-    int lives = 20;
+    int lives = 1;
     Timer gameTimer;
     int spawnCounter = 0;
     int currentRound = 0;
@@ -21,7 +24,10 @@ public class GamePanel extends JPanel implements ActionListener {
     boolean roundActive = false;
     int mouseX=-1000;
     int mouseY=-1000;
-
+    /**
+     * Constructs a GamePanel. Initializes listeners for keyboard and mouse inputs,
+     * and starts the main game loop timer.
+     */
     public GamePanel() {
         setFocusable(true);
         gameTimer = new Timer(16, this);
@@ -126,7 +132,12 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         });
     }
-
+    /**
+     * Renders the game board, including path, towers, enemies, projectiles, explosions,
+     * the HUD/UI shop bar, and the game over screen if lives reach zero.
+     *
+     * @param g the Graphics context used for drawing
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -202,7 +213,12 @@ public class GamePanel extends JPanel implements ActionListener {
         }
 
     }
-
+    /**
+     * Renders the user interface panel at the bottom of the screen, including current stats
+     * (money, lives, round, pops), tower shop selections, and wave controls.
+     *
+     * @param g the Graphics context
+     */
     private void drawUI(Graphics g) {
         int uiHeight=150;
         int uiY=getHeight()-uiHeight;
@@ -311,7 +327,12 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-
+    /**
+     * Listens to action events from the swing timer to run the core game loop.
+     * Updates spawned enemies, round state, and project entities once per tick.
+     *
+     * @param e the ActionEvent triggered by the timer
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
@@ -336,14 +357,17 @@ public class GamePanel extends JPanel implements ActionListener {
             System.err.println("Critical error in game loop: " + ex.getMessage());
         }
     }
-
+    /**
+     * Spawns the next enemy in the current round wave.
+     * Higher rounds increase the chance of launching faster and tougher enemies.
+     */
     private void spawnNextEnemy() {
         double rand = Math.random();
-        if (currentRound > 5 && rand < 0.3)
+        if (currentRound > 5 && rand < 0.15)
             enemies.add(new LeadBall());
-        else if (currentRound > 3 && rand < 0.4)
+        else if (currentRound > 3 && rand < 0.3)
             enemies.add(new TankBall());
-        else if (currentRound > 2 && rand < 0.5)
+        else if (currentRound > 2 && rand < 0.4)
             enemies.add(new SpeedBall());
         else
             enemies.add(new NormalBall());
@@ -356,7 +380,10 @@ public class GamePanel extends JPanel implements ActionListener {
         spawnDelay = Math.max(10, 60 - (currentRound * 2));
         money += 25;
     }
-
+    /**
+     * Updates coordinates, collision, and life cycles of all projectiles, explosion effects,
+     * tower attacks, and active path enemies.
+     */
     private void updateGameObjects() {
         ArrayList<Projectile> deadProjectiles = new ArrayList<>();
         for (Projectile p : projectiles) {
@@ -393,6 +420,9 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         enemies.removeAll(toRemove);
     }
+    /**
+     * Starts the next round wave, incrementing the round counter and configuring spawning values.
+     */
     private void startNextRound() {
         if (!roundActive && lives > 0) {
             currentRound++;
@@ -403,6 +433,14 @@ public class GamePanel extends JPanel implements ActionListener {
             roundActive = true;
         }
     }
+    /**
+     * Helper method to determine if a set of coordinates is close to the enemy path.
+     * Prevents towers from being placed on top of the track.
+     *
+     * @param cx the click X coordinate
+     * @param cy the click Y coordinate
+     * @return true if coordinate lies within path width padding; false otherwise
+     */
     private boolean isNearPath(int cx, int cy) {
         for (int i = 0; i < AbstractEnemy.pathX.length - 1; i++) {
             int ax = AbstractEnemy.pathX[i];
@@ -419,6 +457,9 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         return false;
     }
+    /**
+     * Resets the entire game state to default starting values.
+     */
     private void restartGame() {
         projectiles.clear();
         enemies.clear();
@@ -435,6 +476,9 @@ public class GamePanel extends JPanel implements ActionListener {
         spawnDelay = 60;
         roundActive = false;
     }
+    /**
+     * Disposes of the active playing board frame and returns the player to the main menu screen.
+     */
     private void returnToMainMenu() {
         Window parent=SwingUtilities.getWindowAncestor(this);
         parent.dispose();

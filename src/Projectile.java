@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.util.ArrayList;
-
+/**
+ * Represents a projectile fired by a tower at a target enemy.
+ * Can be normal (single-target dart) or explosive (radius damage bomb).
+ */
 public class Projectile implements GameObject{
     int x;
     int y;
@@ -11,7 +14,15 @@ public class Projectile implements GameObject{
     boolean isExplosive=false;
     double lastTargetX;
     double lastTargetY;
-
+    /**
+     * Constructs a Projectile fired from a tower toward a target.
+     *
+     * @param x           the starting X coordinate
+     * @param y           the starting Y coordinate
+     * @param target      the target enemy to track
+     * @param allEnemies  the list of all current enemies
+     * @param isExplosive whether the projectile should do splash damage
+     */
     public Projectile(int x,int y,AbstractEnemy target,ArrayList<AbstractEnemy> allEnemies,boolean isExplosive){
         this.x=x;
         this.y=y;
@@ -23,9 +34,18 @@ public class Projectile implements GameObject{
         if (isExplosive)
             this.speed=4;
     }
+    /**
+     * Default update method implementing GameObject interface.
+     * Does nothing since the projectile needs the explosions list parameter.
+     */
     @Override
     public void update(){}
-
+    /**
+     * Updates the projectile's movement toward its target.
+     * Handles hit registration, explosive blast wave generation, and target damage.
+     *
+     * @param explosions the list of active explosion effects to add to
+     */
     public void update(ArrayList<ExplosionEffect> explosions) {
         if (!active)
             return;
@@ -60,6 +80,11 @@ public class Projectile implements GameObject{
             y += (dy / dist) * speed;
         }
     }
+    /**
+     * Renders the projectile on screen if it is active.
+     *
+     * @param graphics the Graphics context used for drawing
+     */
     @Override
     public void draw(Graphics graphics){
         if (active){

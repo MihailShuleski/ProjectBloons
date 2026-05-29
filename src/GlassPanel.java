@@ -1,10 +1,23 @@
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * A custom JPanel that renders a rounded, semi-translucent container panel
+ * mimicking a frosted-glass (glassmorphism) aesthetic.
+ */
 public class GlassPanel extends JPanel {
+    /**
+     * Constructs a GlassPanel, configuring it to be non-opaque so the container
+     * background shows through the translucent glass card.
+     */
     public GlassPanel(){
         setOpaque(false);
     }
+    /**
+     * Overrides paintComponent to render a semi-transparent dark container card
+     * with rounded corners and a thin translucent border.
+     *
+     * @param g the Graphics context used for drawing
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
