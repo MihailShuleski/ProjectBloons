@@ -44,8 +44,6 @@ public abstract class AbstractTower implements GameObject {
         if (level>1){
             graphics.setColor(Color.YELLOW);
             graphics.drawRect(x - 17, y - 17, 34, 34);
-            graphics.setFont(new Font("Arial", Font.BOLD, 10));
-            graphics.drawString("LVL" + level, x - 12, y - 20);
         }
     }
 }
