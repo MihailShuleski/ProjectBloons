@@ -14,7 +14,6 @@ public class Game {
 
         GamePanel panel = new GamePanel();
         frame.add(panel);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
         panel.requestFocusInWindow();
     }

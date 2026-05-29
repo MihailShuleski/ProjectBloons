@@ -103,9 +103,9 @@ public class GamePanel extends JPanel implements ActionListener {
                         return;
                     }
                 }
-                    if (isNearPath(cx,cy)){
-                        return;
-                    }
+                if (isNearPath(cx,cy)){
+                    return;
+                }
 
                 int cost = (towerType == 0) ? 50 : 150;
                 if (money >= cost && lives > 0) {
