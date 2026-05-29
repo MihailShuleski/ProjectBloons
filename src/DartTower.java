@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class DartTower extends AbstractTower {
     public DartTower(int x, int y) {
-        super(x, y, 120, 0, "Dart Monkey");
+        super(x, y, 120, 0, "Dart Tower");
     }
 
 

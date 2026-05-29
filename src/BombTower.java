@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class BombTower extends AbstractTower{
     public BombTower(int x, int y) {
-        super(x, y, 100, 1, "Bomb Shooter");
+        super(x, y, 100, 1, "Bomb Tower");
     }
     @Override
     public void attack(ArrayList<AbstractEnemy> enemies, ArrayList<Projectile> projectiles) {
