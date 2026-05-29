@@ -51,6 +51,7 @@ public class MainMenu extends JFrame {
             new Game().showMenu();
     });
         card.add(startBtn, gbc);
+
         gbc.gridy = 3;
         CustomButton helpBtn = new CustomButton("HOW TO PLAY",
                 new Color(58, 59, 76),
@@ -60,6 +61,7 @@ public class MainMenu extends JFrame {
         helpBtn.addActionListener(e -> showHelpDialog());
         card.add(helpBtn, gbc);
 
+        gbc.gridy=4;
         CustomButton exitBtn = new CustomButton("EXIT GAME",
                 new Color(176, 42, 42),
                 new Color(214, 58, 58),
