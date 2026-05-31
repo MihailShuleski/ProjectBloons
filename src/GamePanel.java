@@ -12,7 +12,7 @@ public class GamePanel extends JPanel implements ActionListener {
     ArrayList<AbstractTower> towers = new ArrayList<>();
     ArrayList<ExplosionEffect> explosions = new ArrayList<>();
     int money = 50;
-    int lives = 1;
+    int lives = 20;
     Timer gameTimer;
     int spawnCounter = 0;
     int currentRound = 0;
